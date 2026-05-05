@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "davidanson.vscode-markdownlint",
+        "dorzey.vscode-sqlfluff",
+        "esbenp.prettier-vscode",
+        "github.vscode-github-actions",
+        "ms-vscode.makefile-tools"
+    ]
+}
