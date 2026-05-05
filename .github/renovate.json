@@ -1,0 +1,37 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "timezone": "Asia/Bangkok",
+    "schedule": ["* 0-4 1 * *"],
+    "updateNotScheduled": false,
+    "enabledManagers": ["github-actions", "custom.regex"],
+    "customManagers": [
+        {
+            "customType": "regex",
+            "description": "Update Goose CLI version in docs and workflows",
+            "managerFilePatterns": [
+                "/(^|/)README\\.md$/",
+                "/(^|/)\\.github/workflows/.*\\.ya?ml$/"
+            ],
+            "matchStrings": [
+                "go install github\\.com/pressly/goose/v3/cmd/goose@(?<currentValue>v?\\d+\\.\\d+\\.\\d+)"
+            ],
+            "depNameTemplate": "github.com/pressly/goose/v3",
+            "datasourceTemplate": "go"
+        },
+        {
+            "customType": "regex",
+            "description": "Update SQLFluff version in docs and workflows",
+            "managerFilePatterns": [
+                "/(^|/)README\\.md$/",
+                "/(^|/)\\.github/workflows/.*\\.ya?ml$/"
+            ],
+            "matchStrings": ["sqlfluff==(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
+            "depNameTemplate": "sqlfluff",
+            "datasourceTemplate": "pypi"
+        }
+    ],
+    "reviewersFromCodeOwners": true,
+    "assigneesFromCodeOwners": true,
+    "assignAutomerge": true
+}
