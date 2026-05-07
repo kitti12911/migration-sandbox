@@ -74,8 +74,11 @@ can keep their own version table.
 | Command               | Description                                     |
 | --------------------- | ----------------------------------------------- |
 | `make fmt`            | Format SQL migration and seed files             |
-| `make format`         | Alias for `make fmt`                            |
-| `make lint`           | Lint SQL migration and seed files with SQLFluff |
+| `make pretty`         | Format Markdown, YAML, JSON, and JSONC          |
+| `make format`         | Run SQL and document/config formatting          |
+| `make lint`           | Run SQL and Markdown linting                    |
+| `make lint-sql`       | Lint SQL migration and seed files with SQLFluff |
+| `make markdownlint`   | Lint Markdown files                             |
 | `make lint-postgres`  | Lint PostgreSQL SQL files                       |
 | `make lint-mssql`     | Lint SQL Server SQL files                       |
 | `make validate`       | Validate Goose migration and seed files         |
