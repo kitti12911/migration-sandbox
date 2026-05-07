@@ -38,12 +38,20 @@ else
 	@echo "no SQL Server SQL files to format"
 endif
 
-format: fmt
+pretty:
+	prettier --write "**/*.{md,markdown,yml,yaml,json,jsonc}"
+
+format: fmt pretty
 
 # ____________________ Lint Command ____________________
-lint:
+lint: lint-sql markdownlint
+
+lint-sql:
 	$(MAKE) lint-postgres
 	$(MAKE) lint-mssql
+
+markdownlint:
+	markdownlint-cli2
 
 lint-postgres:
 ifneq ($(strip $(POSTGRES_SQL_FILES)),)
