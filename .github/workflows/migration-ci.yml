@@ -50,7 +50,7 @@ jobs:
                   echo "$(go env GOPATH)/bin" >> "${GITHUB_PATH}"
 
             - name: Lint SQL
-              run: make lint
+              run: make lint-sql
 
             - name: Validate Goose migrations
               run: make validate
