@@ -103,8 +103,14 @@ toolchain container instead of duplicating commands in CI YAML:
 | `scripts/ci/markdownlint.sh`        | Run markdownlint-cli2 with pinned npx |
 
 The GitHub workflow maps repository variables and secrets to the shared
-toolchain registry inputs. GitLab can call the same scripts from the same
-toolchain images with its own CI variables.
+toolchain registry inputs. GitLab uses full image references so the private
+mirror can point at Harbor without changing these scripts:
+
+| GitLab variable                | Purpose                      |
+| ------------------------------ | ---------------------------- |
+| `CI_MIGRATION_TOOLCHAIN_IMAGE` | Image for SQLFluff and Goose |
+| `CI_RELEASE_TOOLCHAIN_IMAGE`   | Image for Markdownlint       |
+| `GITLAB_AMD64_RUNNER_TAG`      | Optional runner tag override |
 
 ## Examples
 

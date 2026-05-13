@@ -1,0 +1,53 @@
+stages:
+    - lint
+
+workflow:
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+        - when: never
+
+variables:
+    GITLAB_AMD64_RUNNER_TAG: "solution-principle.gitlab-bu8-sd"
+
+markdownlint:
+    stage: lint
+    image: $CI_RELEASE_TOOLCHAIN_IMAGE
+    tags:
+        - $GITLAB_AMD64_RUNNER_TAG
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+          changes: &markdown_changes
+              - ".gitlab-ci.yml"
+              - ".markdownlint-cli2.*"
+              - ".markdownlint.*"
+              - "scripts/ci/markdownlint.sh"
+              - "**/*.md"
+              - "**/*.markdown"
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+          changes: *markdown_changes
+    script:
+        - ./scripts/ci/markdownlint.sh
+
+migration:
+    stage: lint
+    image: $CI_MIGRATION_TOOLCHAIN_IMAGE
+    tags:
+        - $GITLAB_AMD64_RUNNER_TAG
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+          changes: &migration_changes
+              - ".gitlab-ci.yml"
+              - ".github/workflows/migration-ci.yml"
+              - ".sqlfluff"
+              - "migration/**/.sqlfluff"
+              - "Makefile"
+              - ".env.example"
+              - "scripts/ci/lint-sql.sh"
+              - "scripts/ci/validate-migrations.sh"
+              - "migration/**/*.sql"
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+          changes: *migration_changes
+    script:
+        - ./scripts/ci/lint-sql.sh
+        - ./scripts/ci/validate-migrations.sh
