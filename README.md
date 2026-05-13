@@ -91,6 +91,21 @@ can keep their own version table.
 | `make seed-status`    | Show seed migration status                      |
 | `make seed-create`    | Create a new seed migration; requires `NAME`    |
 
+## CI Scripts
+
+Provider workflows should call the reusable scripts under `scripts/ci/` from a
+toolchain container instead of duplicating commands in CI YAML:
+
+| Script                              | Description                           |
+| ----------------------------------- | ------------------------------------- |
+| `scripts/ci/lint-sql.sh`            | Lint PostgreSQL and SQL Server SQL    |
+| `scripts/ci/validate-migrations.sh` | Validate schema and seed migrations   |
+| `scripts/ci/markdownlint.sh`        | Run markdownlint-cli2 with pinned npx |
+
+The GitHub workflow maps repository variables and secrets to the shared
+toolchain registry inputs. GitLab can call the same scripts from the same
+toolchain images with its own CI variables.
+
 ## Examples
 
 Create a schema migration:
