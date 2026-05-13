@@ -12,6 +12,8 @@ on:
             - "migration/**/.sqlfluff"
             - "Makefile"
             - ".env.example"
+            - "scripts/ci/lint-sql.sh"
+            - "scripts/ci/validate-migrations.sh"
             - "migration/**/*.sql"
             - "!README.md"
     pull_request:
@@ -21,6 +23,8 @@ on:
             - "migration/**/.sqlfluff"
             - "Makefile"
             - ".env.example"
+            - "scripts/ci/lint-sql.sh"
+            - "scripts/ci/validate-migrations.sh"
             - "migration/**/*.sql"
             - "!README.md"
 
@@ -36,19 +40,19 @@ jobs:
         name: Migration
         runs-on: ubuntu-latest
         container:
-            image: zot.kittiaccess.work/kitti12911/image-toolchain@sha256:47355f96a059465947c38aa956da1c4502c11d1e8f53eb2c8b3980ba58983d42
+            image: ${{ vars.TOOLCHAIN_REGISTRY }}/${{ vars.TOOLCHAIN_IMAGE_NAMESPACE }}/migration-toolchain@sha256:2ad75293deaf3b543a15a82928c4f566fc855bb6e065a0f0fc32e03c735c08f3
             credentials:
-                username: ${{ secrets.ZOT_USERNAME }}
-                password: ${{ secrets.ZOT_TOKEN }}
+                username: ${{ secrets.TOOLCHAIN_REGISTRY_USERNAME }}
+                password: ${{ secrets.TOOLCHAIN_REGISTRY_PASSWORD }}
         steps:
             # actions/checkout v6.0.2
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
             - name: Lint SQL
-              run: make lint-sql
+              run: ./scripts/ci/lint-sql.sh
 
             - name: Validate Goose migrations
-              run: make validate
+              run: ./scripts/ci/validate-migrations.sh
 
     promotion-pr:
         name: Create Promotion PR

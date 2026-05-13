@@ -46,12 +46,21 @@ format: fmt pretty
 # ____________________ Lint Command ____________________
 lint: lint-sql markdownlint
 
+ci-lint-sql:
+	./scripts/ci/lint-sql.sh
+
+ci-validate:
+	./scripts/ci/validate-migrations.sh
+
+ci-markdownlint:
+	./scripts/ci/markdownlint.sh
+
 lint-sql:
 	$(MAKE) lint-postgres
 	$(MAKE) lint-mssql
 
 markdownlint:
-	markdownlint-cli2
+	./scripts/ci/markdownlint.sh
 
 lint-postgres:
 ifneq ($(strip $(POSTGRES_SQL_FILES)),)
