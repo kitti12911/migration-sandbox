@@ -4,7 +4,7 @@ stages:
 workflow:
     rules:
         - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "sit" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
         - when: never
 
 variables:
@@ -24,7 +24,7 @@ markdownlint:
               - "scripts/ci/markdownlint.sh"
               - "**/*.md"
               - "**/*.markdown"
-        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "sit" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
           changes: *markdown_changes
     script:
         - ./scripts/ci/markdownlint.sh
@@ -46,7 +46,7 @@ migration:
               - "scripts/ci/lint-sql.sh"
               - "scripts/ci/validate-migrations.sh"
               - "migration/**/*.sql"
-        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "sit" || $CI_COMMIT_BRANCH == "uat" || $CI_COMMIT_BRANCH == "main"'
           changes: *migration_changes
     script:
         - ./scripts/ci/lint-sql.sh
