@@ -40,7 +40,7 @@ jobs:
         name: Migration
         runs-on: ubuntu-latest
         container:
-            image: ${{ vars.TOOLCHAIN_REGISTRY }}/${{ vars.TOOLCHAIN_IMAGE_NAMESPACE }}/migration-toolchain@sha256:2ad75293deaf3b543a15a82928c4f566fc855bb6e065a0f0fc32e03c735c08f3
+            image: ${{ vars.MIGRATION_TOOLCHAIN_IMAGE }}
             credentials:
                 username: ${{ secrets.TOOLCHAIN_REGISTRY_USERNAME }}
                 password: ${{ secrets.TOOLCHAIN_REGISTRY_PASSWORD }}
