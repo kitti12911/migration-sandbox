@@ -1,5 +1,6 @@
 # ____________________ Tool Commands ____________________
 GOOSE ?= goose
+PYTHON ?= python3
 SQLFLUFF ?= $(or $(shell command -v sqlfluff 2>/dev/null),$(HOME)/.local/bin/sqlfluff)
 
 # ____________________ Migration Config ____________________
@@ -18,6 +19,13 @@ POSTGRES_SQL_FILES := $(shell find migration/postgres -name '*.sql' 2>/dev/null)
 MSSQL_SQL_FILES := $(shell find migration/mssql -name '*.sql' 2>/dev/null)
 MIGRATION_DIRS := $(shell find migration -type d -name migrations 2>/dev/null)
 SEED_DIRS := $(shell find migration -type d -name seeds 2>/dev/null)
+
+# ____________________ Utility Command ____________________
+generate-password:
+	openssl rand -base64 24
+
+escape-db-password:
+	@$(PYTHON) -c 'import getpass, urllib.parse; print(urllib.parse.quote(getpass.getpass("password: "), safe=""))'
 
 # ____________________ Format Command ____________________
 fmt:
