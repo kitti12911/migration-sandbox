@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-project_dir="${CI_PROJECT_DIR:-$(pwd)}"
+project_dir="$(pwd)"
 cd "${project_dir}"
 
 SQLFLUFF="${SQLFLUFF:-$(command -v sqlfluff 2>/dev/null || printf '%s' "${HOME}/.local/bin/sqlfluff")}"
