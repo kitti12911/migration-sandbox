@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-project_dir="${CI_PROJECT_DIR:-$(pwd)}"
+project_dir="$(pwd)"
 cd "${project_dir}"
 
 GOOSE="${GOOSE:-goose}"
