@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS payment_outbox (
 -- +goose StatementEnd
 
 -- +goose StatementBegin
-CREATE INDEX IF NOT EXISTS ix_payment_outbox_status_created_at
+CREATE INDEX IF NOT EXISTS ix_payment_outbox_status_created_at -- noqa: PG01
 ON payment_outbox (status, created_at);
 -- +goose StatementEnd
 
