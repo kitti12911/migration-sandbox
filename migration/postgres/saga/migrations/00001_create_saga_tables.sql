@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS saga_instances (
 -- +goose StatementEnd
 
 -- +goose StatementBegin
-CREATE INDEX IF NOT EXISTS ix_saga_instances_state_updated_at
+CREATE INDEX IF NOT EXISTS ix_saga_instances_state_updated_at -- noqa: PG01
 ON saga_instances (state, updated_at);
 -- +goose StatementEnd
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS saga_outbox (
 -- +goose StatementEnd
 
 -- +goose StatementBegin
-CREATE INDEX IF NOT EXISTS ix_saga_outbox_status_created_at
+CREATE INDEX IF NOT EXISTS ix_saga_outbox_status_created_at -- noqa: PG01
 ON saga_outbox (status, created_at);
 -- +goose StatementEnd
 
